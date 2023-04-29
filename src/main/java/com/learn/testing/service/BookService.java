@@ -13,4 +13,6 @@ public interface BookService {
     Book updateBook(Book book);
 
     Book deleteBook(Long bookId);
+
+    List<Book> filterBooks(String name, Double rating);
 }

@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +22,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book addBook(Book book) {
+
         if (bookRepository.findById(book.getBookId()).isPresent()) {
             throw new CustomBookException("book already exist in the system", HttpStatus.FOUND);
         }
@@ -62,5 +66,11 @@ public class BookServiceImpl implements BookService {
         return dbBook;
     }
 
-
+    @Override
+    public List<Book> filterBooks(String name, Double rating) {
+        Set<Book> bookSet =  bookRepository.findByNameContainsIgnoreCase(name);
+        Set<Book> bookSet1 = bookRepository.findByRatingGreaterThanEqual(rating);
+        bookSet.retainAll(bookSet1);
+        return new ArrayList<>(bookSet);
+    }
 }

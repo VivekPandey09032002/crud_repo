@@ -53,8 +53,8 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> getAllBooks(){
-        List<Book> books  = bookService.getBooks();
+    public List<BookDto> getAllBooks(@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "rating", defaultValue = "0") Double rating){
+        List<Book> books  = bookService.filterBooks(name, rating);
         return BookUtility.booksToBooksDto(books);
     }
 
