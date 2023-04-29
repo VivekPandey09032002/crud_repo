@@ -1,5 +1,6 @@
 package com.learn.testing.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
@@ -16,4 +17,6 @@ public class BookDto {
     private String summary;
 
     private double rating;
+    @JsonProperty("authorInfo")
+    private AuthorDto authorDto;
 }

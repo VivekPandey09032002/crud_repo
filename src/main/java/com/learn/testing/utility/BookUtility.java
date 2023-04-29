@@ -15,6 +15,7 @@ public class BookUtility {
                 .name(book.getName())
                 .summary(book.getSummary())
                 .rating(book.getRating())
+                .authorDto( AuthorUtility.authorToDto(book.getAuthor()) )
                 .build();
     }
 
@@ -24,6 +25,7 @@ public class BookUtility {
                 .name(bookDto.getName())
                 .summary(bookDto.getSummary())
                 .rating(bookDto.getRating())
+                .author(AuthorUtility.dtoToAuthor(bookDto.getAuthorDto()))
                 .build();
     }
     public static List<BookDto> booksToBooksDto(List<Book> books){
@@ -32,7 +34,7 @@ public class BookUtility {
     }
 
     public static boolean isNotValidBook(BookDto bookDto){
-        return bookDto == null || bookDto.getBookId() == null || bookDto.getName() == null || bookDto.getSummary() == null;
+        return bookDto == null || bookDto.getBookId() == null || bookDto.getName() == null || bookDto.getSummary() == null || bookDto.getAuthorDto() == null;
     }
 
 }

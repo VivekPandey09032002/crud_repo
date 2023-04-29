@@ -24,6 +24,9 @@ public class Book {
 
     private double rating;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Author author;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

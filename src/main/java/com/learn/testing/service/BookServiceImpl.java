@@ -1,15 +1,16 @@
 package com.learn.testing.service;
 
 
+import com.learn.testing.dto.AuthorDto;
 import com.learn.testing.entity.Book;
 import com.learn.testing.exception.CustomBookException;
 import com.learn.testing.repository.BookRepository;
+import com.learn.testing.utility.AuthorUtility;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,10 @@ public class BookServiceImpl implements BookService {
         if (bookRepository.findById(book.getBookId()).isPresent()) {
             throw new CustomBookException("book already exist in the system", HttpStatus.FOUND);
         }
+        AuthorDto authorDto = AuthorUtility.authorToDto(book.getAuthor());
+        if(AuthorUtility.isNotValidAuthor( authorDto ) ){
+            throw new CustomBookException("cannot add book, invalid author",HttpStatus.BAD_REQUEST);
+        }
         return bookRepository.save(book);
     }
 
@@ -35,7 +40,12 @@ public class BookServiceImpl implements BookService {
         if (filteredBooks.isEmpty()) {
             throw new CustomBookException("no unique book was found", HttpStatus.FOUND);
         }
-
+        for(Book book : filteredBooks){
+            AuthorDto authorDto = AuthorUtility.authorToDto(book.getAuthor());
+            if (AuthorUtility.isNotValidAuthor(authorDto)) {
+                throw new CustomBookException("not a valid author", HttpStatus.BAD_REQUEST);
+            }
+        }
         return bookRepository.saveAll(filteredBooks);
     }
 
@@ -56,6 +66,11 @@ public class BookServiceImpl implements BookService {
         dbBook.setName(book.getName());
         dbBook.setSummary(book.getSummary());
         dbBook.setRating(book.getRating());
+        AuthorDto authorDto = AuthorUtility.authorToDto(book.getAuthor());
+        if(AuthorUtility.isNotValidAuthor( authorDto ) ){
+            throw new CustomBookException("not a valid author",HttpStatus.BAD_REQUEST);
+        }
+        dbBook.setAuthor(book.getAuthor());
         return bookRepository.save(dbBook);
     }
 
