@@ -19,4 +19,7 @@ public class Author {
 
     private String language;
 
+    @OneToOne(mappedBy = "author")
+    private Book book;
+
 }

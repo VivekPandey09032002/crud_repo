@@ -1,6 +1,7 @@
 package com.learn.testing.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.testing.entity.Book;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,5 @@ public class AuthorDto {
     private String lastName;
 
     private String language;
+
 }

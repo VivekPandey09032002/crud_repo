@@ -40,9 +40,9 @@ public class BookController {
     @InjectMocks
     private BookController bookController;
 
-    Book RECORD_1 = new Book(1L,"Atomic Habits","How to build better habits",4.5);
-    Book RECORD_2 = new Book(2L,"Thinking fast and slow","How to create a good mental model about thinking",4.5);
-    Book RECORD_3 = new Book(3L,"Grokking Algorithms","Learn algorithm in fun way",4.5);
+    Book RECORD_1 = new Book(1L,"Atomic Habits","How to build better habits",4.5,null);
+    Book RECORD_2 = new Book(2L,"Thinking fast and slow","How to create a good mental model about thinking",4.5,null);
+    Book RECORD_3 = new Book(3L,"Grokking Algorithms","Learn algorithm in fun way",4.5,null);
 
     @BeforeEach
     public void setUp(){
